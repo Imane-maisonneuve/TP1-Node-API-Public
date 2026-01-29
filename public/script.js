@@ -1,6 +1,6 @@
 const urlParams = new URLSearchParams(window.location.search);
-const ticker = urlParams.get("ticker");
-if (!ticker) {
+const exibition = urlParams.get("exibition");
+if (!exibition) {
   fetch(`/data`)
     .then((response) => response.json())
     .then((data) => {
@@ -31,7 +31,7 @@ if (!ticker) {
       console.error("ErrorError fetching data:", error);
     });
 } else {
-  fetch(`/data/${ticker}`)
+  fetch(`/data/${exibition}`)
     .then((response) => response.json())
     .then((data) => {
       const container = document.getElementById("data-container");

@@ -40,9 +40,9 @@ app.get("/data", (req, res) => {
   });
 });
 
-app.get("/ticker=:id", (req, res) => {
-  const tickerId = req.params.id;
-  var url = `https://api.harvardartmuseums.org/exhibition/${tickerId}?apikey=${config.apiKey}`;
+app.get("/exibition=:id", (req, res) => {
+  const exibitionId = req.params.id;
+  var url = `https://api.harvardartmuseums.org/exhibition/${exibitionId}?apikey=${config.apiKey}`;
   request.get(
     {
       url: url,
@@ -53,10 +53,10 @@ app.get("/ticker=:id", (req, res) => {
       if (err || response.statusCode !== 200) {
         return res.status(500).send("Error occurred while fetching data");
       }
-      fs.writeFile(`${tickerId}.json`, JSON.stringify(data), (err) => {
+      fs.writeFile(`${exibitionId}.json`, JSON.stringify(data), (err) => {
         if (err) return res.status(500).send("Error writing file");
 
-        res.redirect(`/view?ticker=${tickerId}`);
+        res.redirect(`/view?exibition=${exibitionId}`);
       });
     },
   );
@@ -66,9 +66,9 @@ app.get("/view", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
-app.get("/data/:ticker", (req, res) => {
-  const ticker = req.params.ticker;
-  const filePath = path.join(__dirname, `${ticker}.json`);
+app.get("/data/:exibition", (req, res) => {
+  const exibition = req.params.exibition;
+  const filePath = path.join(__dirname, `${exibition}.json`);
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
       return res.status(404).send("Data not found");
