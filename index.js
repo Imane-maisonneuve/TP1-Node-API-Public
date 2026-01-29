@@ -4,7 +4,6 @@ const config = require("./config.js");
 const request = require("request");
 const fs = require("fs");
 const path = require("path");
-const { log } = require("console");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "node_modules")));
